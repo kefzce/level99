@@ -32,7 +32,7 @@ class Employee implements NormalizableInterface
     #[ORM\Column(name: 'updated_at', type: 'datetime', nullable: true)]
     private ?\DateTime $updatedAt = null;
 
-    #[ORM\Column(name: 'date_of_employment', type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'date_of_employment', type: 'datetime', nullable: false)]
     private \DateTime $dateOfEmployment;
 
     #[ORM\Column(name: 'salary', type: 'float', nullable: false)]
