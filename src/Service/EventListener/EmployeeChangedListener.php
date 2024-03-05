@@ -26,8 +26,6 @@ readonly class EmployeeChangedListener
         }
 
         $entity->touch();
-
-        $args->getObjectManager()->flush();
     }
 
     public function prePersist(Employee $employee, PrePersistEventArgs $args): void
@@ -41,7 +39,5 @@ readonly class EmployeeChangedListener
         if (null === $entity->getCreatedAt()) {
             $entity->setCreatedAt(new \DateTime('now'));
         }
-
-        $args->getObjectManager()->flush();
     }
 }

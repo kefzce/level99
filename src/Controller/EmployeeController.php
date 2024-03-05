@@ -92,7 +92,8 @@ class EmployeeController extends AbstractController
     )]
     public function update(#[MapRequestPayload] EmployeeDto $request, #[MapEntity] Employee $employee, EntityManagerInterface $em): JsonResponse
     {
-        $employee->touch()
+        $employee
+            ->touch()
             ->setFirstName($request->firstName)
             ->setLastName($request->lastName)
             ->setEmail($request->email)
