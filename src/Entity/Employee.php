@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\EmployeeRepository;
 use App\Request\EmployeeDto;
 use Doctrine\ORM\Mapping as ORM;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -15,27 +17,40 @@ class Employee implements NormalizableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[OA\Property(description: 'The unique identifier of the employee.')]
     private ?int $id = null;
 
     #[ORM\Column(name: 'first_name', type: 'string', length: 64, nullable: false)]
+    #[OA\Property(type: 'string', maxLength: 64)]
+    #[SerializedName('first_name')]
     private string $firstName;
 
     #[ORM\Column(name: 'last_name', type: 'string', length: 64, nullable: false)]
+    #[OA\Property(type: 'string', maxLength: 64)]
+    #[SerializedName('last_name')]
     private string $lastName;
 
     #[ORM\Column(name: 'email', type: 'string', unique: true, nullable: false)]
+    #[OA\Property(type: 'string')]
     private string $email;
 
     #[ORM\Column(name: 'created_at', type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[SerializedName('created_at')]
+    #[OA\Property(description: 'Created at', type: 'string', format: 'date-time')]
     private \DateTime $createdAt;
 
     #[ORM\Column(name: 'updated_at', type: 'datetime', nullable: true)]
+    #[SerializedName('updated_at')]
+    #[OA\Property(description: 'Updated at', type: 'string', format: 'date-time')]
     private ?\DateTime $updatedAt = null;
 
     #[ORM\Column(name: 'date_of_employment', type: 'datetime', nullable: false)]
+    #[SerializedName('date_of_employment')]
+    #[OA\Property(description: 'Date of Employment', type: 'string', format: 'date-time')]
     private \DateTime $dateOfEmployment;
 
     #[ORM\Column(name: 'salary', type: 'float', nullable: false)]
+    #[OA\Property(type: 'string', format: 'float')]
     private float $salary;
 
     public function __construct(string $firstName, string $lastName, string $email)
@@ -83,7 +98,7 @@ class Employee implements NormalizableInterface
 
     public function isNew(): bool
     {
-        return null !== $this->id;
+        return null === $this->id;
     }
 
     public function normalize(NormalizerInterface $normalizer, ?string $format = null, array $context = []): array
@@ -129,5 +144,35 @@ class Employee implements NormalizableInterface
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function getDateOfEmployment(): \DateTime
+    {
+        return $this->dateOfEmployment;
+    }
+
+    public function getSalary(): float
+    {
+        return $this->salary;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
     }
 }

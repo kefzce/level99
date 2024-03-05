@@ -24,8 +24,8 @@ class EmployeeDto
     #[Assert\NotNull]
     public float $salary;
 
-    #[Assert\GreaterThanOrEqual('today')]
-    #[Assert\DateTime]
+    //    #[Assert\GreaterThanOrEqual('today')]
+    //    #[Assert\DateTime(format: \DateTime::ATOM)]
     public \DateTime $dateOfEmployment;
 
     public function __construct(

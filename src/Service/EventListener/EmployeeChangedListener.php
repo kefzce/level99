@@ -12,7 +12,7 @@ use Doctrine\ORM\Events;
 #[AsEntityListener(event: Events::prePersist, method: 'prePersist', entity: Employee::class)]
 readonly class EmployeeChangedListener
 {
-    public function postUpdate(PostUpdateEventArgs $args): void
+    public function postUpdate(Employee $employee, PostUpdateEventArgs $args): void
     {
         /** @var Employee $entity */
         $entity = $args->getObject();
@@ -30,7 +30,7 @@ readonly class EmployeeChangedListener
         $args->getObjectManager()->flush();
     }
 
-    public function prePersist(PrePersistEventArgs $args): void
+    public function prePersist(Employee $employee, PrePersistEventArgs $args): void
     {
         /** @var Employee $entity */
         $entity = $args->getObject();
