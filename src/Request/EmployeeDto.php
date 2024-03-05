@@ -20,12 +20,18 @@ class EmployeeDto
     #[Assert\NotNull]
     public string $email;
 
-    #[Assert\GreaterThanOrEqual(100)]
+    #[Assert\GreaterThanOrEqual(
+        value: 100,
+        message: 'Salary should be greater than or equal to 100'
+    )]
     #[Assert\NotNull]
     public float $salary;
 
-    //    #[Assert\GreaterThanOrEqual('today')]
-    //    #[Assert\DateTime(format: \DateTime::ATOM)]
+    #[Assert\GreaterThanOrEqual(
+        value: 'today',
+        message: 'The Date of Employment  {{ value }} supposed to be in a future after {{ compared_value }}',
+    )]
+    #[Assert\Valid]
     public \DateTime $dateOfEmployment;
 
     public function __construct(
